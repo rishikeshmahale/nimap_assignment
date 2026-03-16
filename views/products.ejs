@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Master</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+ 
+    <h2>Product Master</h2>
+
+    <a href="/products/add">
+        Add Product
+    </a>
+
+    <br><br>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Actions</th>
+
+        </tr>
+
+        <% products.forEach(product=> { %>
+
+            <tr>
+
+                <td>
+                    <%= product._id %>
+                </td>
+
+                <td>
+                    <%= product.productName %>
+                </td>
+
+                <td>
+                    <%= product.categoryId._id %>
+                </td>
+
+                <td>
+                    <%= product.categoryId.categoryName %>
+                </td>
+
+                <td>
+
+                    <a href="/products/edit/<%= product._id %>">
+                        Edit
+                    </a>
+
+                    &nbsp;
+
+                    <a href="/products/delete/<%= product._id %>">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <% }) %>
+
+    </table>
+
+    <br><br>
+
+    <h3>Pagination</h3>
+
+    <div>
+
+        <% for(let i=1; i <=totalPages; i++) { %>
+
+            <a href="/products?page=<%= i %>">
+
+                <%= i %>
+
+            </a>
+
+            &nbsp;
+
+            <% } %>
+
+    </div>
+
+    <br>
+
+    <a href="/categories">
+        Go To Categories
+    </a>
+
+</body>
+
+</html>

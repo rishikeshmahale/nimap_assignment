@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Master</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <h2>Category Master</h2>
+
+    <h3>Add Category</h3>
+
+    <form action="/categories/add" method="POST">
+
+        <input type="text" name="categoryName" placeholder="Enter Category Name" required>
+
+        <button type="submit">Add Category</button>
+
+    </form>
+
+    <br><br>
+
+    <h3>Category List</h3>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Actions</th>
+        </tr>
+
+        <% categories.forEach(category=> { %>
+
+            <tr>
+
+                <td>
+                    <%= category._id %>
+                </td>
+
+                <td>
+                    <%= category.categoryName %>
+                </td>
+
+                <td>
+
+                    <a href="/categories/edit/<%= category._id %>">
+                        Edit
+                    </a>
+
+                    &nbsp;
+
+                    <a href="/categories/delete/<%= category._id %>">
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            <% }) %>
+
+    </table>
+
+    <br>
+
+    <a href="/products">Go To Products</a>
+
+</body>
+
+</html>
