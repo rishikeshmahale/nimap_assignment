@@ -1,56 +1,57 @@
 import Category from "../models/categoryModel.js";
 
-// create category controller 
 export const createCategory = async (req, res) => {
+  try {
+    const { categoryName } = req.body;
 
-  const { categoryName } = req.body;
+    await Category.create({ categoryName });
 
-  await Category.create({
-    categoryName
-  });
+    res.redirect("/categories");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error creating category");
+  }
+};
 
-  res.redirect("/categories");
-}
+export const getAllCategories = async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.render("categories", { categories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching categories");
+  }
+};
 
+export const deleteCategory = async (req, res) => {
+  try {
+    await Category.findByIdAndDelete(req.params.id);
+    res.redirect("/categories");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error deleting category");
+  }
+};
 
-// read category controller
-export const readCategory = async (req, res) => {
+export const getCategoryById = async (req, res) => {
+  try {
+    const category = await Category.findById(req.params.id);
+    res.render("editCategory", { category });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching category");
+  }
+};
 
-  const categories = await Category.find();
+export const updateCategory = async (req, res) => {
+  try {
+    const { categoryName } = req.body;
 
-  res.render("categories", { categories });
+    await Category.findByIdAndUpdate(req.params.id, { categoryName });
 
-}
-
-
-// delete controller
-
-export const deleteController = async (req, res) => {
-
-  await Category.findByIdAndDelete(req.params.id);
-
-  res.redirect("/categories");
-
-}
-
-
-export const editController = async (req, res) => {
-
-  const categoryData = await Category.findById(req.params.id);
-
-  res.render("editCategory", { category: categoryData });
-
-}
-
-
-export const updateController = async (req, res) => {
-
-  const { categoryName } = req.body;
-
-  await Category.findByIdAndUpdate(req.params.id, {
-    categoryName
-  });
-
-  res.redirect("/categories");
-
-}
+    res.redirect("/categories");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating category");
+  }
+};

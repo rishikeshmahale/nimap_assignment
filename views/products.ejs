@@ -12,7 +12,7 @@
  
     <h2>Product Master</h2>
 
-    <a href="/products/add">
+    <a href="/products/new">
         Add Product
     </a>
 
@@ -21,16 +21,14 @@
     <table border="1" cellpadding="10">
 
         <tr>
-
             <th>Product ID</th>
             <th>Product Name</th>
             <th>Category ID</th>
             <th>Category Name</th>
             <th>Actions</th>
-
         </tr>
 
-        <% products.forEach(product=> { %>
+        <% products.forEach(product => { %>
 
             <tr>
 
@@ -52,21 +50,25 @@
 
                 <td>
 
-                    <a href="/products/edit/<%= product._id %>">
+                    <a href="/products/<%= product._id %>/edit">
                         Edit
                     </a>
 
                     &nbsp;
 
-                    <a href="/products/delete/<%= product._id %>">
-                        Delete
-                    </a>
+                    <form 
+                        action="/products/<%= product._id %>?_method=DELETE" 
+                        method="POST" 
+                        style="display:inline;"
+                    >
+                        <button type="submit">Delete</button>
+                    </form>
 
                 </td>
 
             </tr>
 
-            <% }) %>
+        <% }) %>
 
     </table>
 
@@ -76,17 +78,15 @@
 
     <div>
 
-        <% for(let i=1; i <=totalPages; i++) { %>
+        <% for(let i = 1; i <= totalPages; i++) { %>
 
             <a href="/products?page=<%= i %>">
-
                 <%= i %>
-
             </a>
 
             &nbsp;
 
-            <% } %>
+        <% } %>
 
     </div>
 

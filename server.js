@@ -1,11 +1,10 @@
 import express from "express";
-import bodyParser from "body-parser";
 import connectDB from "./config/db.js";
+import methodOverride from "method-override";
+import dotenv from "dotenv";
 
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
-
-import dotenv from "dotenv";
 
 const app = express();
 
@@ -17,7 +16,10 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+
+// method override
+app.use(methodOverride("_method"));
 
 app.use("/categories", categoryRoutes);
 app.use("/products", productRoutes);

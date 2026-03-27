@@ -14,9 +14,14 @@
 
     <h3>Add Category</h3>
 
-    <form action="/categories/add" method="POST">
+    <form action="/categories" method="POST">
 
-        <input type="text" name="categoryName" placeholder="Enter Category Name" required>
+        <input 
+            type="text" 
+            name="categoryName" 
+            placeholder="Enter Category Name" 
+            required
+        >
 
         <button type="submit">Add Category</button>
 
@@ -34,7 +39,7 @@
             <th>Actions</th>
         </tr>
 
-        <% categories.forEach(category=> { %>
+        <% categories.forEach(category => { %>
 
             <tr>
 
@@ -48,27 +53,33 @@
 
                 <td>
 
-                    <a href="/categories/edit/<%= category._id %>">
+                    <a href="/categories/<%= category._id %>/edit">
                         Edit
                     </a>
 
                     &nbsp;
 
-                    <a href="/categories/delete/<%= category._id %>">
-                        Delete
-                    </a>
+                    <form 
+                        action="/categories/<%= category._id %>?_method=DELETE" 
+                        method="POST" 
+                        style="display:inline;"
+                    >
+                        <button type="submit">Delete</button>
+                    </form>
 
                 </td>
 
             </tr>
 
-            <% }) %>
+        <% }) %>
 
     </table>
 
     <br>
 
-    <a href="/products">Go To Products</a>
+    <a href="/products">
+        Go To Products
+    </a>
 
 </body>
 

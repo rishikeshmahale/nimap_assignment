@@ -12,46 +12,42 @@
 
     <h2>Edit Product</h2>
 
-    <form action="/products/update/<%= product._id %>" method="POST">
+    <form action="/products/<%= product._id %>?_method=PUT" method="POST">
 
         <label>Product Name</label>
-
         <br>
 
-        <input type="text" name="productName" value="<%= product.productName %>" required>
+        <input 
+            type="text" 
+            name="productName" 
+            value="<%= product.productName %>" 
+            required
+        >
 
         <br><br>
 
         <label>Select Category</label>
-
         <br>
 
-        <select name="categoryId">
+        <select name="categoryId" required>
 
-            <% categories.forEach(category=> { %>
+            <% categories.forEach(category => { %>
 
-                <option value="<%= category._id %>" <% if(category._id.toString()===product.categoryId.toString()) { %>
-
-                    selected
-
-                    <% } %>
-
-                        >
-
-                        <%= category.categoryName %>
-
+                <option 
+                    value="<%= category._id %>" 
+                    <%= category._id.toString() === product.categoryId.toString() ? "selected" : "" %>
+                >
+                    <%= category.categoryName %>
                 </option>
 
-                <% }) %>
+            <% }) %>
 
         </select>
 
         <br><br>
 
         <button type="submit">
-
             Update Product
-
         </button>
 
     </form>
@@ -59,9 +55,7 @@
     <br>
 
     <a href="/products">
-
         Back to Product List
-
     </a>
 
 </body>
